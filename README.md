@@ -2,18 +2,17 @@
 
 This webapp measures the performance of the webpage.
 
-WORKFLOW
+WORKFLOW :
 
 Get the url to be assessed from the user input.
 
 Return the Performance metrics by parsing the response from the API.
 
 
-API 
+API :
 The PageSpeed Insights API returns real-world data from the Chrome User Experience Report and lab data from Lighthouse.
 
-TOOLS USED
-
-Flask
+TOOLS USED :
+Flask , 
 wkhtmltopdf(not finalized)
 
