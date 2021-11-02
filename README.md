@@ -13,6 +13,7 @@ API
 The PageSpeed Insights API returns real-world data from the Chrome User Experience Report and lab data from Lighthouse.
 
 TOOLS USED
+
 Flask
 wkhtmltopdf(not finalized)
 
