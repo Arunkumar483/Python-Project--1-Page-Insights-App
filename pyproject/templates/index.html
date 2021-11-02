@@ -1,10 +1,24 @@
 {% extends 'layout.html' %}
 {% block content %}
 <hr>
+{{data["lighthouseResult"]["audits"]["viewport"]}}
 <hr>
 <div align="center" border='1'>
-Captcha status :  {{data}}<br>
-Timestamp      :  {{data2}}<br>
-Overall performance  :{{data3['metrics']['CUMULATIVE_LAYOUT_SHIFT_SCORE']['category']}}
+<h1>REPORT SUMMARY</h1> <caption>{{analyzedurl}}</caption><br>
+Captcha status :  {{captcha}}<br>
+<small>Timestamp      :  {{timestamp}}</small>
+<br>
 </div>
+<hr>
+<div align="center" class="lighthouseResult">
+    Initial Url :{{lighthouseResult["requestedUrl"]}}
+    <br>
+    Final Url :{{lighthouseResult["finalUrl"]}}
+    <hr>
+    <br>    
+</div>
+
+<hr>
+
+
 {% endblock content %}

@@ -7,20 +7,25 @@ app=Flask(__name__)
 def index():
     
     api_key = 'AIzaSyAhSbk4l49jwrWO9iBaD_hJeLg3elYjSEw'
-    search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://www.google.com&key='+api_key
+    search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://www.biomotionlog.in/&key='+api_key
     
     #getting the information response from the specified url
     response = requests.get(search_api_url)
     
     #convert json string into python dictionary
     data=json.loads(response.content)
-    
+
     #getting necessary parameters from the response's dictionary (data) 
     captcha=data["captchaResult"]
     timestamp=data["analysisUTCTimestamp"]
-    performance=data["loadingExperience"]
+    lighthouseResult=data["lighthouseResult"]
+    #firstmeaningfulpaint=data['first-meaningful-paint']
     
-    return render_template('index.html',data=captcha,data2=timestamp,data3=performance)
+    analyzedurl=data["id"]
+
+
+    return render_template('index.html',data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl)
+
 
 
 
