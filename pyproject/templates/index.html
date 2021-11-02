@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+<hr>
+<hr>
+<div align="center" border='1'>
+Captcha status :  {{data}}<br>
+Timestamp      :  {{data2}}<br>
+Overall performance  :{{data3['metrics']['CUMULATIVE_LAYOUT_SHIFT_SCORE']['category']}}
+</div>
+{% endblock content %}
