@@ -5,7 +5,9 @@ This webapp measures the performance of the webpage.
 WORKFLOW :
 
 ->Get the url to be assessed from the user input.
+
 ->Return the Performance metrics by parsing the response from the API.
+
 ->Generate page performance report as pdf
 
 API :
