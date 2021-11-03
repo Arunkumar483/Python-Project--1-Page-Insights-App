@@ -1,10 +1,10 @@
 from flask import Flask, json,render_template,request
-#from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 import requests
 #from requests.api import request
 #Standard :WSGI -> Standard that is used for communication between appliication and server.
 app=Flask(__name__)
-#run_with_ngrok(app)
+run_with_ngrok(app)
 #Decorator binded with function
 
 @app.route('/',methods=['Get'])
