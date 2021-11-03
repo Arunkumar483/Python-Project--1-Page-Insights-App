@@ -1,5 +1,6 @@
-from flask import Flask, json,render_template
+from flask import Flask, json,render_template,request
 import requests
+#from requests.api import request
 #Standard :WSGI -> Standard that is used for communication between appliication and server.
 app=Flask(__name__)
 #Decorator binded with function
@@ -17,11 +18,14 @@ def test():
 
 
 
-@app.route('/results',methods=['GET'])
+@app.route('/results',methods=['GET','POST'])
 def result():
-    
+    if request.method == 'POST':
+        urltobechecked=request.form['url']
+    #req=request.form['url']
+
     api_key = 'AIzaSyAhSbk4l49jwrWO9iBaD_hJeLg3elYjSEw'
-    search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://www.google.co.in/&key='+api_key
+    search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+urltobechecked+'/&key='+api_key
     
     #getting the information response from the specified url
     response = requests.get(search_api_url)
