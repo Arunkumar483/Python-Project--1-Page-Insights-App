@@ -1,22 +1,15 @@
 from flask import Flask, json,render_template,request
+#from flask_ngrok import run_with_ngrok
 import requests
 #from requests.api import request
 #Standard :WSGI -> Standard that is used for communication between appliication and server.
 app=Flask(__name__)
+#run_with_ngrok(app)
 #Decorator binded with function
 
 @app.route('/',methods=['Get'])
 def index():
-    working="workingeh!"
-    return render_template("index.html",working=working)
-@app.route('/test',methods=['Get'])
-def test():
-    working="workingeh!"
-    return working
-    
-
-
-
+    return render_template("index.html")
 
 @app.route('/results',methods=['GET','POST'])
 def result():
@@ -43,7 +36,7 @@ def result():
     viewportid=viewportdetails["id"]
     viewporttitle=viewportdetails["title"]
 
-    #viewport score
+    #viewport score checker
     viewportscore=viewportdetails["score"]
     if(int(viewportscore)==1):
         viewportscore="GOOD"
@@ -62,4 +55,4 @@ def result():
 
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()
