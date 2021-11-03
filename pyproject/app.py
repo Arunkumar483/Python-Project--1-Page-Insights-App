@@ -3,11 +3,25 @@ import requests
 #Standard :WSGI -> Standard that is used for communication between appliication and server.
 app=Flask(__name__)
 #Decorator binded with function
+
 @app.route('/',methods=['Get'])
 def index():
+    working="workingeh!"
+    return render_template("index.html",working=working)
+@app.route('/test',methods=['Get'])
+def test():
+    working="workingeh!"
+    return working
+    
+
+
+
+
+@app.route('/results',methods=['GET'])
+def result():
     
     api_key = 'AIzaSyAhSbk4l49jwrWO9iBaD_hJeLg3elYjSEw'
-    search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://www.biomotionlog.in/&key='+api_key
+    search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://www.google.co.in/&key='+api_key
     
     #getting the information response from the specified url
     response = requests.get(search_api_url)
@@ -31,19 +45,16 @@ def index():
         viewportscore="GOOD"
     else:
         viewportscore="BAD"
-    #firstmeaningfulpaint=data['first-meaningful-paint']
     viewportdescription=viewportdetails["description"]
     analyzedurl=data["id"]
 
 
-    return render_template('index.html',data=data,viewportdetails=viewportdetails,viewportscore=viewportscore,viewportdescription=viewportdescription,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,viewportid=viewportid,viewporttitle=viewporttitle)
+    return render_template('results.html',data=data,viewportdetails=viewportdetails,viewportscore=viewportscore,viewportdescription=viewportdescription,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,viewportid=viewportid,viewporttitle=viewporttitle)
 
 
 
 
-@app.route('/results')
-def result():
-    return "<h1 align=center>Page Speed Analyser</h1>"
+    
 
 
 if __name__=='__main__':

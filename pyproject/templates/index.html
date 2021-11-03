@@ -1,36 +1,38 @@
 {% extends 'layout.html' %}
 {% block content %}
 <hr>
-<div align="center" class="baseinfo">
-    <h3 align="center">BASE INFO</h3> 
-    <caption>{{analyzedurl}}</caption>
-    <br>
-    Captcha status :  {{captcha}}<br>
-    <small>Timestamp      :  {{timestamp}}</small>
-    <br>
-</div>
-<hr>
-<div align="center" class="lighthouseResult">
-    <h3>URL INFO</h3> 
-    Initial Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["requestedUrl"]}}">{{lighthouseResult["requestedUrl"]}}</a>
-    <br>
-    Final Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["finalUrl"]}}">{{lighthouseResult["finalUrl"]}}</a>
-    <hr>
-    <br>    
-</div>
-<div align="center" class="viewportdetails">
-    <h3 align="center">Viewport tag presence<br><br>
-        <small><strong>Remarks :<u>{{viewportscore}}</u></strong></small>
-    </h3> 
-    <br>
-    <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{viewporttitle}}</h6>
-    <br>
-    Description :&nbsp&nbsp&nbsp&nbsp {{viewportdescription}}
-</div>
-    <hr>
-    <br>    
-<!-- trials -->
-<!-- {{viewportdetails}} -->
-<hr>
-<!--{{data}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div class="wrapper cont">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                    </div>
+                    <form  action="/results" method="post">
+                        <div class="form-group">
+                            <br>
+                            <h6>Enter the url to be assessed</h6>
+                            <br>
+                            <input type="text" name="url" id="url" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+                        <hr>
+                        
+                    </form>
+                    <br/>
+                </div>
+            </div>        
+        </div>
+    </div>
+</body>
+</html>
 {% endblock content %}
