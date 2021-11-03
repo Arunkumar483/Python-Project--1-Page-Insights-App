@@ -19,13 +19,24 @@ def index():
     captcha=data["captchaResult"]
     timestamp=data["analysisUTCTimestamp"]
     lighthouseResult=data["lighthouseResult"]
+
+    #viewport parameters
     viewportdetails=data["lighthouseResult"]["audits"]["viewport"]
+    viewportid=viewportdetails["id"]
+    viewporttitle=viewportdetails["title"]
+
+    #viewport score
+    viewportscore=viewportdetails["score"]
+    if(int(viewportscore)==1):
+        viewportscore="GOOD"
+    else:
+        viewportscore="BAD"
     #firstmeaningfulpaint=data['first-meaningful-paint']
-    
+    viewportdescription=viewportdetails["description"]
     analyzedurl=data["id"]
 
 
-    return render_template('index.html',data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl)
+    return render_template('index.html',data=data,viewportdetails=viewportdetails,viewportscore=viewportscore,viewportdescription=viewportdescription,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,viewportid=viewportid,viewporttitle=viewporttitle)
 
 
 
