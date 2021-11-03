@@ -59,7 +59,7 @@ def result():
     unusedjsdescription=unusedjsdetails["description"]
     analyzedurl=data["id"]
 
-    return render_template('results.html',data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,viewportid=viewportid,viewportdetails=viewportdetails,viewportscore=viewportscore,viewportdescription=viewportdescription,viewporttitle=viewporttitle,unusedjsid=unusedjsid,unusedjsdetails=unusedjsdetails,unusedjsscore=unusedjsscore,unusedjsdescription=unusedjsdescription,unusedjstitle=unusedjstitle)
+    return render_template('results.html',urltobechecked=urltobechecked,data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,viewportid=viewportid,viewportdetails=viewportdetails,viewportscore=viewportscore,viewportdescription=viewportdescription,viewporttitle=viewporttitle,unusedjsid=unusedjsid,unusedjsdetails=unusedjsdetails,unusedjsscore=unusedjsscore,unusedjsdescription=unusedjsdescription,unusedjstitle=unusedjstitle)
 
 
 

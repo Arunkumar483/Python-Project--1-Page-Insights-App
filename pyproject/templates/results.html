@@ -1,8 +1,19 @@
 {% extends 'layout.html' %}
 {% block content %}
 <hr>
-<div align="center" class="baseinfo">
-    <h3 align="center">BASE INFO in results page</h3> 
+<div class="wrapper cont">
+<div align="center" class="previewcont">
+    <h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
+    <hr>
+    <br>
+    <h5 align="center">Preview (Available only for selected sites)</h5> 
+    <iframe src="{{lighthouseResult["finalUrl"]}}" width="100%" height="300"title="preview">
+    </iframe>
+</div>
+
+<hr>
+<div align="center" class="baseinfocont">
+    <h5 align="center">BASE INFORMATION</h5> 
     <caption>{{analyzedurl}}</caption>
     <br>
     Captcha status :  {{captcha}}<br>
@@ -10,18 +21,18 @@
     <br>
 </div>
 <hr>
-<div align="center" class="lighthouseResult">
-    <h3>URL INFO</h3> 
+<div align="center" class="lighthouseResultcont">
+    <h5>URL INFO</h5> 
     Initial Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["requestedUrl"]}}">{{lighthouseResult["requestedUrl"]}}</a>
     <br>
     Final Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["finalUrl"]}}">{{lighthouseResult["finalUrl"]}}</a>
     <hr>
     <br>    
 </div>
-<div align="center" class="viewportdetails">
-    <h3 align="center">Viewport tag presence<br><br>
+<div align="center" class="viewportdetailscont">
+    <h5 align="center">Viewport tag presence<br><br>
         <small><strong>Remarks :<u>{{viewportscore}}</u></strong></small>
-    </h3> 
+    </h5> 
     <br>
     <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{viewporttitle}}</h6>
     <br>
@@ -29,9 +40,9 @@
 </div>
 <hr>
 <div align="center" class="unusedjsdetails">
-    <h3 align="center">unusedjs tag presence<br><br>
+    <h5 align="center">unusedjs tag presence<br><br>
         <small><strong>Remarks :<u>{{unusedjsscore}}</u></strong></small>
-    </h3> 
+    </h5> 
     <br>
     <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{unusedjstitle}}</h6>
     <br>
@@ -41,5 +52,6 @@
 <!-- trials -->
 <!-- {{viewportdetails}} -->
 <hr>
+</div>
 <!--{{data}} -->
 {% endblock content %}
