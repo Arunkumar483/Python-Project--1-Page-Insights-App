@@ -19,6 +19,7 @@ def index():
     captcha=data["captchaResult"]
     timestamp=data["analysisUTCTimestamp"]
     lighthouseResult=data["lighthouseResult"]
+    viewportdetails=data["lighthouseResult"]["audits"]["viewport"]
     #firstmeaningfulpaint=data['first-meaningful-paint']
     
     analyzedurl=data["id"]

@@ -1,22 +1,24 @@
 {% extends 'layout.html' %}
 {% block content %}
 <hr>
-{{data["lighthouseResult"]["audits"]["viewport"]}}
-<hr>
-<div align="center" border='1'>
-<h1>REPORT SUMMARY</h1> <caption>{{analyzedurl}}</caption><br>
-Captcha status :  {{captcha}}<br>
-<small>Timestamp      :  {{timestamp}}</small>
-<br>
+<div align="center" class="baseinfo">
+    <h3 align="center">BASE INFO</h3> 
+    <caption>{{analyzedurl}}</caption>
+    <br>
+    Captcha status :  {{captcha}}<br>
+    <small>Timestamp      :  {{timestamp}}</small>
+    <br>
 </div>
 <hr>
 <div align="center" class="lighthouseResult">
-    Initial Url :{{lighthouseResult["requestedUrl"]}}
+    <h3>URL INFO</h3> 
+    Initial Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["requestedUrl"]}}">{{lighthouseResult["requestedUrl"]}}</a>
     <br>
-    Final Url :{{lighthouseResult["finalUrl"]}}
+    Final Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["finalUrl"]}}">{{lighthouseResult["finalUrl"]}}</a>
     <hr>
     <br>    
 </div>
+
 
 <hr>
 
