@@ -2,16 +2,9 @@
 {% block content %}
 <hr>
 <div class="wrapper cont">
-<div align="center" class="previewcont">
-    <h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
-    <hr>
-    <br>
-    <h5 align="center">Preview (Available only for selected sites)</h5> 
-    <iframe src="{{lighthouseResult["finalUrl"]}}" width="100%" height="300"title="preview">
-    </iframe>
-</div>
-
+<h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
 <hr>
+<br>
 <div align="center" class="baseinfocont">
     <h5 align="center">BASE INFORMATION</h5> 
     <caption>{{analyzedurl}}</caption>
@@ -29,29 +22,48 @@
     <hr>
     <br>    
 </div>
-<div align="center" class="viewportdetailscont">
-    <h5 align="center">Viewport tag presence<br><br>
-        <small><strong>Remarks :<u>{{viewportscore}}</u></strong></small>
-    </h5> 
-    <br>
-    <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{viewporttitle}}</h6>
-    <br>
-    Description :&nbsp&nbsp&nbsp&nbsp {{viewportdescription}}
+<div align="center" class="previewcont">
+    
+    <h5 align="center">Preview (Available only for selected sites)</h5> 
+    <iframe src="{{lighthouseResult["finalUrl"]}}" width="100%" height="300" title="preview">
+    </iframe>
 </div>
 <hr>
-<div align="center" class="unusedjsdetails">
-    <h5 align="center">unusedjs tag presence<br><br>
-        <small><strong>Remarks :<u>{{unusedjsscore}}</u></strong></small>
-    </h5> 
-    <br>
-    <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{unusedjstitle}}</h6>
-    <br>
-    Description :&nbsp&nbsp&nbsp&nbsp {{unusedjsdescription}}
+<!-- iterating through different attributes of metrics in auditsdata -->
+<div id="datasets">
+    
+        {% for key,value in auditsdata.items() %}
+        <h5 align="center">{{key}} Analysis<br><br> 
+                {% if value["score"] is not none %}   
+                    <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
+                {%endif %}      
+        </h5> 
+        <br>
+        <!-- Display screenshots of the analyzed page -->
+        {% if value['title']=="Full-page screenshot" : %}
+        <div><img src="{{value["details"]["screenshot"]["data"]}}"" width="50%" height="300"></div>
+        {% endif %}
+        {% if value['title']=="Final Screenshot" : %}
+        <div><img src="{{value["details"]["data"]}}"" width="50%" height="300"></div>
+        {% endif %}
+        {% if value['title']=="Screenshot Thumbnails" : %}
+        <div>
+            <img src="{{value["details"]["items"][2]["data"]}}"" width="10%" height="100">
+            <img src="{{value["details"]["items"][3]["data"]}}"" width="10%" height="100">
+            <img src="{{value["details"]["items"][4]["data"]}}"" width="10%" height="100">  
+            <br>  
+        </div>
+        {% endif %}
+        
+
+        <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{value["title"]}}</h6>
+        <br>
+        <div align="left">Description :&nbsp&nbsp&nbsp&nbsp {{value["description"]}}</div>
+        <br>
+        <hr>
+        {% endfor %}
+    
+ </div>
 </div>
-<br>    
-<!-- trials -->
-<!-- {{viewportdetails}} -->
-<hr>
-</div>
-<!--{{data}} -->
+
 {% endblock content %}

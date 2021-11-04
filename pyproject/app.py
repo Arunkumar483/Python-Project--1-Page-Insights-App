@@ -26,46 +26,17 @@ def result():
     data=json.loads(response.content)
 
     #getting necessary parameters from the response's dictionary (data) 
+    analyzedurl=data["id"]
     captcha=data["captchaResult"]
     timestamp=data["analysisUTCTimestamp"]
     lighthouseResult=data["lighthouseResult"]
-
-    #viewport parameters
-    viewportdetails=data["lighthouseResult"]["audits"]["viewport"]
-    viewportid=viewportdetails["id"]
-    viewporttitle=viewportdetails["title"]
-
-    #viewport score checker
-    viewportscore=viewportdetails["score"]
-    if(int(viewportscore)==1):
-        viewportscore="GOOD"
-    else:
-        viewportscore="BAD"
-    viewportdescription=viewportdetails["description"]
-    analyzedurl=data["id"]
-
-
-    #unusedjs parameters
-    unusedjsdetails=data["lighthouseResult"]["audits"]["unused-javascript"]
-    unusedjsid=unusedjsdetails["id"]
-    unusedjstitle=unusedjsdetails["title"]
-
-    #unusedjs score checker
-    unusedjsscore=unusedjsdetails["score"]
-    if(int(unusedjsscore)==1):
-        unusedjsscore="GOOD"
-    else:
-        unusedjsscore="BAD"
-    unusedjsdescription=unusedjsdetails["description"]
-    analyzedurl=data["id"]
-
-    return render_template('results.html',urltobechecked=urltobechecked,data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,viewportid=viewportid,viewportdetails=viewportdetails,viewportscore=viewportscore,viewportdescription=viewportdescription,viewporttitle=viewporttitle,unusedjsid=unusedjsid,unusedjsdetails=unusedjsdetails,unusedjsscore=unusedjsscore,unusedjsdescription=unusedjsdescription,unusedjstitle=unusedjstitle)
-
-
-
-
+    auditsdata=data["lighthouseResult"]["audits"]
     
 
+    #iterating through audits
+    auditsdata=data["lighthouseResult"]["audits"]
+
+    return render_template('results.html',urltobechecked=urltobechecked,data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,auditsdata=auditsdata)
 
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)
