@@ -39,4 +39,4 @@ def result():
     return render_template('results.html',urltobechecked=urltobechecked,data=data,captcha=captcha,timestamp=timestamp,lighthouseResult=lighthouseResult,analyzedurl=analyzedurl,auditsdata=auditsdata)
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()
