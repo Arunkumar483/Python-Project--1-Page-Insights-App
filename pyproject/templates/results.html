@@ -3,29 +3,27 @@
 <hr>
 <div class="wrapper cont">
 <h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
+<subscript>{{analyzedurl}}</subscript>
 <hr>
 <br>
+<!--  -->
 <div align="center"> <h5 align="center">Areas to be improved</h5>
-{% for key,value in auditsdata.items() %}
-{% if value["score"] is not none %} 
-{% if value["score"]*100 < 99 %}
-                    <small><strong>{{key}} :  {{value["score"]*100}}%</strong></small><br>
-{%endif %}
-{%endif %}
-{% endfor %}
+    {% for key,value in auditsdata.items() %}
+        {% if value["score"] is not none %} 
+            {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
+                    <strong>{{key}}   <div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong><br>
+            {%endif %}
+        {%endif %}
+    {% endfor %}
 </div>
-
-
-
-
-
-<br>
 <hr>
 <div align="center" class="baseinfocont">
+    <!-- base information about the current page -->
     <h5 align="center">BASE INFORMATION</h5> 
     <caption>{{analyzedurl}}</caption>
     <br>
-    Captcha status :  {{captcha}}<br>
+    Captcha status :  {{captcha}}
+    <br>
     <small>Timestamp      :  {{timestamp}}</small>
     <br>
 </div>
@@ -48,43 +46,41 @@
 <hr>
 <!-- iterating through different attributes of metrics in auditsdata -->
 <div id="datasets">
+        <!-- performance calculation in selected attributes -->
         {% for key,value in auditsdata.items() %}
-        <h5 align="center">{{key}} Analysis<br><br> 
-                {% if value["score"] is not none %}   
-                    <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
-                {%endif %}      
-        </h5> 
-        <br>
-        <!-- Display screenshots of the analyzed page -->
+            <h5 align="center">{{key}} Analysis<br><br> 
+                    {% if value["score"] is not none %}   
+                        <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
+                    {%endif %}      
+            </h5> 
+            <br>
+            <!-- Display screenshots of the analyzed page -->
+            {% if value['title']=="Full-page screenshot" : %}
+                <div><img src="{{value["details"]["screenshot"]["data"]}}"" width="50%" height="300"></div>
+            {% endif %}
 
-        {% if value['title']=="Full-page screenshot" : %}
-        <div><img src="{{value["details"]["screenshot"]["data"]}}"" width="50%" height="300"></div>
-        {% endif %}
+            <!-- Display screenshots of the Final page -->
+            {% if value['title']=="Final Screenshot" : %}
+                <div><img src="{{value["details"]["data"]}}"" width="50%" height="300"></div>
+            {% endif %}
 
-        <!-- Display screenshots of the Final page -->
-        {% if value['title']=="Final Screenshot" : %}
-        <div><img src="{{value["details"]["data"]}}"" width="50%" height="300"></div>
-        {% endif %}
-
-        <!-- Display snapshots -->
-        {% if value['title']=="Screenshot Thumbnails" : %}
-        <div>
-            <img src="{{value["details"]["items"][2]["data"]}}"" width="10%" height="100">
-            <img src="{{value["details"]["items"][3]["data"]}}"" width="10%" height="100">
-            <img src="{{value["details"]["items"][4]["data"]}}"" width="10%" height="100">  
-            <br>  
-        </div>
-        {% endif %}
-        
-
-        <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{value["title"]}}</h6>
-        <br>
-        <div align="left">Description :&nbsp&nbsp&nbsp&nbsp {{value["description"]}}</div>
-        <br>
-        <hr>
+            <!-- Display snapshots -->
+            {% if value['title']=="Screenshot Thumbnails" : %}
+                <div>
+                    <img src="{{value["details"]["items"][2]["data"]}}"" width="10%" height="100">
+                    <img src="{{value["details"]["items"][3]["data"]}}"" width="10%" height="100">
+                    <img src="{{value["details"]["items"][4]["data"]}}"" width="10%" height="100">  
+                    <br>  
+                </div>
+            {% endif %}
+            
+            <!-- Display title and description and remarks of the attributes -->
+            <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{value["title"]}}</h6>
+            <br>
+            <div align="left">Description :&nbsp&nbsp&nbsp&nbsp {{value["description"]}}</div>
+            <br>
+            <hr>
         {% endfor %}
-    
- </div>
 </div>
 
 {% endblock content %}
