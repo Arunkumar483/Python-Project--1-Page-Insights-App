@@ -5,7 +5,21 @@
 <h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
 <hr>
 <br>
+<div align="center"> <h5 align="center">Areas to be improved</h5>
+{% for key,value in auditsdata.items() %}
+{% if value["score"] is not none %} 
+{% if value["score"]*100 < 99 %}
+                    <small><strong>{{key}} :  {{value["score"]*100}}%</strong></small><br>
+{%endif %}
+{%endif %}
+{% endfor %}
+</div>
 
+
+
+
+
+<br>
 <hr>
 <div align="center" class="baseinfocont">
     <h5 align="center">BASE INFORMATION</h5> 
