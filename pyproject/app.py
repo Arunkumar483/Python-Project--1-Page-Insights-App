@@ -14,7 +14,9 @@ def index():
 def result():
     if request.method == 'POST':
         urltobechecked=request.form['url']
-    #req=request.form['url']
+    
+
+    
 
     api_key = 'AIzaSyAhSbk4l49jwrWO9iBaD_hJeLg3elYjSEw'
     search_api_url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+urltobechecked+'/&key='+api_key
