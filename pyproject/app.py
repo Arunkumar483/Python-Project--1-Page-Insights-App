@@ -31,7 +31,6 @@ def result():
     lighthouseResult=data["lighthouseResult"]
     auditsdata=data["lighthouseResult"]["audits"]
     
-
     #iterating through audits
     auditsdata=data["lighthouseResult"]["audits"]
 
