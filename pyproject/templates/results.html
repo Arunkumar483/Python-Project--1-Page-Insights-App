@@ -2,27 +2,9 @@
 {% block content %}
 <hr>
 <div class="wrapper cont">
+<br>
 <h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
 <subscript>{{analyzedurl}}</subscript>
-<hr>
-    
-<hr>
-<!--  performance summary-->
-<div align="center"> <h5 align="center">Areas to be improved</h5>
-    {% for key,value in auditsdata.items() %}
-        {% if value["score"] is not none %} 
-            {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
-                <!-- if performance is bad then yellow -->
-                {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
-                <a href="#{{key}}"><strong>{{key}}</a>   <div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong><br>
-                <!-- else performance is average -->
-                {% else %}
-                <a href="#{{key}}"><strong>{{key}}</a> <div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong><br>
-                {%endif %}
-            {%endif %}
-        {%endif %}
-    {% endfor %}
-</div>
 <hr>
 <div align="center" class="baseinfocont">
     <!-- base information about the current page -->
@@ -35,6 +17,7 @@
     <br>
 </div>
 <hr>
+
 <div align="center" class="lighthouseResultcont">
     <!-- url redirections information -->
     <h5>URL INFO</h5> 
@@ -44,6 +27,24 @@
     <hr>
     <br>    
 </div>
+<!--  performance summary-->
+<div align="center"> <h5 align="center">Areas to be improved</h5>
+    {% for key,value in auditsdata.items() %}
+        {% if value["score"] is not none %} 
+            {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
+                <!-- if performance is bad then orange -->
+                {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
+                        <a href="#{{key}}"><strong>{{key}}</a>   <div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong><br>
+                <!-- else performance is average -->
+                {% else %}
+                        <a href="#{{key}}"><strong>{{key}}</a> <div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong><br>
+                {%endif %}
+            {%endif %}
+        {%endif %}
+    {% endfor %}
+</div>
+<hr>
+
 <div align="center" class="previewcont">
     <!-- usage of iframe in preview of the analyzed site  -->
     <h5 align="center">Preview (Available only for selected sites)</h5> 
@@ -61,7 +62,6 @@
                         <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
                     {%endif %}   
             </h5> 
-            <br>
             <!-- Display screenshots of the analyzed page -->
             {% if value['title']=="Full-page screenshot" : %}
                 <div><img src="{{value["details"]["screenshot"]["data"]}}"" width="50%" height="300"></div>
@@ -81,11 +81,56 @@
                     <br>  
                 </div>
             {% endif %}
+            <!-- critical request chains -->
+            {% if value['id']=="critical-request-chains" : %}
+                <div><h6 align="center">&nbsp {{value["displayValue"]}}</h6></div>
+            {% endif %}
             
-            <!-- Display title and description and remarks of the attributes -->
-            <h6 align="center">&nbsp&nbsp&nbsp&nbsp {{value["title"]}}</h6>
+
+            <!-- special parameters for network requests -->
+            {% if value['id']=="network-requests" : %}
+            <div class="attributes" align="center">
+                    <table align="center " border=1 style="padding:10px">
+                    {% for key,value in value["details"]["items"][0].items() %}
+                    
+                            <tr><td>{{key}}</td><td> {{value}} </td></tr>
+                    {% endfor %}
+                            </table>
+            </div>
+                    
+            {% endif %}
+            
+            
+            <!-- special parameters for metrics -->
+            {% if value['id']=="metrics" : %}
+            <div class="attributes" align="center">
+                    <table align="center " border=1 style="padding:10px">
+                    {% for key,value in value["details"]["items"][0].items() %}
+                    
+                            <tr><td>{{key}}</td><td> {{value}} ms</td></tr>
+                    {% endfor %}
+                            </table>
+            </div>
+                    
+            {% endif %}
+
+            <!-- special parameters for diagnostics -->
+            {% if value['id']=="diagnostics" : %}
+                <div class="attributes" align="center">
+                        <table align="center " border=1 style="padding-left:10px">
+                        {% for key,value in value["details"]["items"][0].items() %}
+                        
+                                <tr><td>{{key}}</td><td> {{value}}</td></tr>
+                        {% endfor %}
+                        </table>                    
+                </div>                        
+            {% endif %}
+            
             <br>
-            <div align="left">Description :&nbsp&nbsp&nbsp&nbsp {{value["description"]}}</div>
+            <!-- Display title and description and remarks of the attributes -->
+            <h6 align="center">&nbsp&nbsp&nbsp&nbsp ({{value["title"]}})</h6>
+            <br>
+            <div align="left" style="padding-left: 10%; padding-right: 5%; ">Description/Remarks : <br><br>{{value["description"]}}</div>
             <br>
             <hr>
             </div>
