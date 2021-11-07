@@ -5,13 +5,20 @@
 <h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
 <subscript>{{analyzedurl}}</subscript>
 <hr>
-<br>
+    
+<hr>
 <!--  performance summary-->
 <div align="center"> <h5 align="center">Areas to be improved</h5>
     {% for key,value in auditsdata.items() %}
         {% if value["score"] is not none %} 
             {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
-                    <strong>{{key}}   <div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong><br>
+                <!-- if performance is bad then yellow -->
+                {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
+                <a href="#{{key}}"><strong>{{key}}</a>   <div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong><br>
+                <!-- else performance is average -->
+                {% else %}
+                <a href="#{{key}}"><strong>{{key}}</a> <div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong><br>
+                {%endif %}
             {%endif %}
         {%endif %}
     {% endfor %}
@@ -48,10 +55,11 @@
 <div id="datasets">
         <!-- performance calculation in selected attributes -->
         {% for key,value in auditsdata.items() %}
-            <h5 align="center">{{key}} Analysis<br><br> 
+            <div id="{{key}}" class="attributes">
+                <h5 align="center">{{key}} Analysis<br><br> 
                     {% if value["score"] is not none %}   
                         <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
-                    {%endif %}      
+                    {%endif %}   
             </h5> 
             <br>
             <!-- Display screenshots of the analyzed page -->
@@ -80,6 +88,7 @@
             <div align="left">Description :&nbsp&nbsp&nbsp&nbsp {{value["description"]}}</div>
             <br>
             <hr>
+            </div>
         {% endfor %}
 </div>
 
