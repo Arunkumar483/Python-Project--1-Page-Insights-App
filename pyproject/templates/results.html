@@ -2,9 +2,36 @@
 {% block content %}
 <hr>
 <div class="wrapper cont">
+
 <br>
-<h3 align="center"><superscript>Pageinsights Analysis</superscript></h3>
+<h2 align="center"><strong>Pageinsights Analysis</strong></h2>
 <subscript>{{analyzedurl}}</subscript>
+<hr>
+<div align="center" class="copytoclipboard">
+    <p><input type="text" class="output" id="myInput" style="display: none;">
+        <br><button class="btn btn-primary" id="copiedtxt" style="display: none;" onclick="myFunction()">Copy text</button></p>
+    <button id="btn" class="btn btn-primary" onclick="document.getElementById('myInput').style.display = 'block' ;" >Share this report </button>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $('#btn').click(function() {
+            currLoc = $(location).attr('href');
+            document.getElementById('copiedtxt').style.display = 'block' ;
+            document.querySelector('.output').value = currLoc;
+            
+        });
+        function myFunction() {
+                /* Get the text field */
+                var copyText = document.getElementById("myInput");
+                /* Select the text field */
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); /* For mobile devices */
+                /* Copy the text inside the text field */
+                navigator.clipboard.writeText(copyText.value);
+                /* Alert the copied text */
+                alert("Copied the report url: " + copyText.value);
+                }
+    </script>
+</div>
 <hr>
 <div align="center" class="baseinfocont">
     <!-- base information about the current page -->
@@ -125,10 +152,10 @@
                         </table>                    
                 </div>                        
             {% endif %}
-            
+
             <br>
             <!-- Display title and description and remarks of the attributes -->
-            <h6 align="center">&nbsp&nbsp&nbsp&nbsp ({{value["title"]}})</h6>
+            <h6 align="center">&nbsp&nbsp&nbsp&nbsp <u>{{value["title"]}}</u></h6>
             <br>
             <div align="left" style="padding-left: 10%; padding-right: 5%; ">Description/Remarks : <br><br>{{value["description"]}}</div>
             <br>
