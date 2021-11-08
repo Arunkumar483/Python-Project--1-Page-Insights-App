@@ -97,8 +97,12 @@
         {% for key,value in auditsdata.items() %}
             <div id="{{key}}" class="attributes">
                 <h5 align="center">{{key}} Analysis<br><br> 
-                    {% if value["score"] is not none %}   
-                        <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
+                    {% if value["score"] is not none %}
+                        {% if value["score"] == 1 %}
+                            <small><strong>Performance <br><h4 style="color:green">Good</p></h4></strong></small>
+                        {% else %}
+                            <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
+                        {%endif %}
                     {%endif %}   
             </h5> 
             <!-- Display screenshots of the analyzed page -->
