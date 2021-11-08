@@ -8,32 +8,22 @@
 <hr>
 <div align="center" class="copytoclipboard">
     
-    <button id="btn" class="btn btn-primary" onclick="document.getElementById('myInput').style.display = 'none' ;">Share this report </button>
-    <p>
-        <input type="text" class="output" id="myInput" style="display: none;">
-        <br>
-        <button class="btn btn-secondary" id="copiedtxt" style="display: none;" onclick="myFunction()">Generated URL</button>
-    </p>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <button id="btn" class="btn btn-primary" onclick="myFunction()">Share this report </button>
+    
     <script>
-        $('#btn').click(function()
-        {
-            currLoc = $(location).attr('href');
-            document.getElementById('copiedtxt').style.display = 'block' ;
-            document.querySelector('.output').value = currLoc;
-            
-        });
+        
         function myFunction() 
-        {
+        {       
+                currLoc = $(location).attr('href');
+                console.log(currLoc);
                 /* Get the text field */
-                var copyText = document.getElementById("myInput");
+                var copyText = currLoc;
                 /* Select the text field */
-                copyText.select();
-                copyText.setSelectionRange(0, 99999); /* For mobile devices */
+        
                 /* Copy the text inside the text field */
-                navigator.clipboard.writeText(copyText.value);
+                navigator.clipboard.writeText(copyText);
                 /* Alert the copied text */
-                alert("Copied the report url: " + copyText.value);
+                alert("Copied the report url: " + copyText);
         }
     </script>
 </div>
@@ -50,14 +40,14 @@
                         <!-- if performance is bad then orange -->
                         {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
                                 <tr>
-                                    <td><h5><strong>{{key}}<div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td></h5>
-                                    <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
+                                    <td><h5><strong><a href="#{{key}}">{{key}}</a><div align="right" style="padding-right:30%;color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td></h5>
+                                    
                                 </tr>
                         <!-- else performance is average -->
                         {% else %}
                                 <tr>
-                                    <td><h5><strong>{{key}}<div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong></td></h5>
-                                    <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
+                                    <td><h5><strong><a href="#{{key}}">{{key}}</a><div align="right" style="padding-right:30%;color:green">{{value["score"]*100}}%</div></strong></td></h5>
+                                    
                                 </tr>
                         {%endif %}
                     {%endif %}
