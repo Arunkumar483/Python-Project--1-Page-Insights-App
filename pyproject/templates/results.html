@@ -8,6 +8,7 @@
 <subscript>{{analyzedurl}}</subscript>
 <hr>
 <div align="center" class="copytoclipboard">
+    
     <p><input type="text" class="output" id="myInput" style="display: none;">
         <br><button class="btn btn-primary" id="copiedtxt" style="display: none;" onclick="myFunction()">Copy text</button></p>
     <button id="btn" class="btn btn-primary" onclick="document.getElementById('myInput').style.display = 'block' ;" >Share this report </button>
@@ -69,6 +70,16 @@
 
 <div align="center" class="lighthouseResultcont">
     <!-- url redirections information -->
+    <h5>BASE INFORMATION</h5> 
+    <div>
+    <caption>{{analyzedurl}}</caption>
+    <br>
+    Captcha status :  {{captcha}}
+    <br>
+    <small>Timestamp      :  {{timestamp}}</small>
+    <br>
+    </div>
+    <hr>
     <h5>URL INFORMATION</h5> 
     Initial Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["requestedUrl"]}}">{{lighthouseResult["requestedUrl"]}}</a>
     <br>
