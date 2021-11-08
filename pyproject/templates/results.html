@@ -37,17 +37,10 @@
     <!-- base information about the current page -->
     <h4 align="center">Overall Page Performance Score<h2 style="color:green" align="center"> {{lighthouseResult["categories"]["performance"]["score"]*100}}%</h2></h4>
     
-    <h5>BASE INFORMATION</h5> 
-    <caption>{{analyzedurl}}</caption>
-    <br>
-    Captcha status :  {{captcha}}
-    <br>
-    <small>Timestamp      :  {{timestamp}}</small>
-    <br>
-    <br>
+  
     
     <div>
-    <h5 align="center">Areas to be improved</h5>
+    <h5 align="center"></h5>
         {% for key,value in auditsdata.items() %}
             <table style="width:100%">
             {% if value["score"] is not none %}
@@ -55,13 +48,13 @@
                     <!-- if performance is bad then orange -->
                     {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
                             <tr>
-                                <td><strong>{{key}}<div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td>
+                                <td><h5><strong>{{key}}<div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td></h5>
                                 <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
                             </tr>
                     <!-- else performance is average -->
                     {% else %}
                             <tr>
-                                <td><strong>{{key}}<div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong></td>
+                                <td><h5><strong>{{key}}<div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong></td></h5>
                                 <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
                             </tr>
                     {%endif %}
