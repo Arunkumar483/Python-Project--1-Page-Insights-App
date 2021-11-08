@@ -11,9 +11,10 @@
     <button id="btn" class="btn btn-primary" onclick="copytext()">Share this report </button>
     
     <script>
+        document.getElementById("copy-me").innerHTML=currLoc;
         function copyer(e){
-            document.getElementById('copy-me').style.display = 'block' ;
-            document.getElementById("copy-me").innerHTML=currLoc;
+            // document.getElementById('copy-me').style.display = 'block' ;
+            
             var t=document.getElementById(e);if(document.selection){if(t.nodeName.toLowerCase()==="input"){document.getElementById(e).select();document.execCommand("copy")}else{var o=document.body.createTextRange();o.moveToElementText(document.getElementById(e));o.select();document.execCommand("copy")}}else if(window.getSelection){if(t.nodeName.toLowerCase()==="input"){document.getElementById(e).select();document.execCommand("copy")}else{var o=document.createRange();o.selectNode(document.getElementById(e));window.getSelection().removeAllRanges();window.getSelection().addRange(o);document.execCommand("copy")}}}
 
         // function myFunction() 
@@ -131,17 +132,32 @@
                 </div>
             {% endif %}
             <!-- critical request chains -->
-            {% if value['id']=="critical-request-chains" : %}
-                <div><h6 align="center">&nbsp {{value["displayValue"]}}</h6></div>
+            {% if (value['id']=="critical-request-chains") or (value['id']=="total-byte-weight") or (value['id']=="interactive"): %}
+                <div><h6 align="center">&nbsp {{value["displayValue"]}}</h6>
+                    <h6 align="center">&nbsp {{value["numericValue"]}} {{value["numericUnit"]}}</h6>
+                </div>
             {% endif %}
             
 
             <!-- special parameters for network requests -->
-            {% if value['id']=="network-requests" : %}
+            {% if (value['id']=="network-requests") : %}
                 <div class="attributes" align="center">
                         <table align="center " border=1 style="padding:10px">
-                            {% for i in  range(0,4)%}
-                                <tr align="left">{{value["details"]["items"][i]["url"]}}</tr><br>
+                            <th align="center">URL</th><tr></tr>
+                            {% for i in range(0,value["details"]["items"]|length) %}
+                                <tr align="left"><td>{{value["details"]["items"][i]["url"]}}</td></tr>
+                            {% endfor %}
+                        </table>
+                </div>
+            {% endif %}
+            <!-- special parameters for main thread tasks -->
+            {% if (value['id']=="main-thread-tasks") : %}
+                <div class="attributes" align="center">
+                        <table align="center " border=1 style="padding:10px">
+                            <th>Start time</th><th>Duration</th>
+                            {% for i in range(0,value["details"]["items"]|length) %}
+                            
+                            <tr align="left"><td>{{value["details"]["items"][i]["startTime"]}}ms</td><td>{{value["details"]["items"][i]["duration"]}}ms</td></tr>
                             {% endfor %}
                         </table>
                 </div>
@@ -157,6 +173,19 @@
                         </table>
                 </div>
             {% endif %}
+             <!-- special parameters for boot-up time -->
+             {% if value['id']=="bootup-time" : %}
+             <div class="attributes" align="center">
+                     <table align="center " border=1 style="padding:10px">
+                         {% for key,value in value["details"]["items"][0].items() %}
+                         
+                                 <tr><td>{{key}}</td><td> {{value}} ms</td></tr>
+                         {% endfor %}
+                     </table>
+                     <br>
+                     JS Execution Time :{{value["numericValue"]}}{{value["numericUnit"]}}
+             </div>
+            {% endif %}
             <!-- special parameters for diagnostics -->
             {% if value['id']=="diagnostics" : %}
                 <div class="attributes" align="center">
@@ -168,7 +197,12 @@
                         </table>                    
                 </div>                        
             {% endif %}
-
+                
+            {% if (value['id']=="max-potential-fid") or (value['id']=="network-rtt") or (value['id']=="first-contentful-paint") or (value['id']=="total-blocking-time") : %}
+                <div class="attributes" align="center">
+                    {{value["numericValue"]}} {{value["numericUnit"]}}                
+                </div>                        
+            {% endif %}
             <br>
             <!-- Display title and description and remarks of the attributes -->
             <h6 align="center">&nbsp&nbsp&nbsp&nbsp <u>{{value["title"]}}</u></h6>
