@@ -33,44 +33,56 @@
     </script>
 </div>
 <hr>
-<div align="center" class="baseinfocont">
+<div align="left" style="padding-left: 10%; padding-right: 5%;">
     <!-- base information about the current page -->
-    <h5 align="center">BASE INFORMATION</h5> 
+    <h4 align="center">Overall Page Performance Score<h2 style="color:green" align="center"> {{lighthouseResult["categories"]["performance"]["score"]*100}}%</h2></h4>
+    
+    <h5>BASE INFORMATION</h5> 
     <caption>{{analyzedurl}}</caption>
     <br>
     Captcha status :  {{captcha}}
     <br>
     <small>Timestamp      :  {{timestamp}}</small>
     <br>
+    <br>
+    
+    <div>
+    <h5 align="center">Areas to be improved</h5>
+        {% for key,value in auditsdata.items() %}
+            <table style="width:100%">
+            {% if value["score"] is not none %}
+                {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
+                    <!-- if performance is bad then orange -->
+                    {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
+                            <tr>
+                                <td><strong>{{key}}<div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td>
+                                <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
+                            </tr>
+                    <!-- else performance is average -->
+                    {% else %}
+                            <tr>
+                                <td><strong>{{key}}<div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong></td>
+                                <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
+                            </tr>
+                    {%endif %}
+                {%endif %}
+            {%endif %}
+            </table>
+        {% endfor %}
+    </div>
+    
 </div>
 <hr>
 
 <div align="center" class="lighthouseResultcont">
     <!-- url redirections information -->
-    <h5>URL INFO</h5> 
+    <h5>URL INFORMATION</h5> 
     Initial Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["requestedUrl"]}}">{{lighthouseResult["requestedUrl"]}}</a>
     <br>
     Final Url :&nbsp&nbsp&nbsp&nbsp<a href="{{lighthouseResult["finalUrl"]}}">{{lighthouseResult["finalUrl"]}}</a>
     <hr>
     <br>    
 </div>
-<!--  performance summary-->
-<div align="center"> <h5 align="center">Areas to be improved</h5>
-    {% for key,value in auditsdata.items() %}
-        {% if value["score"] is not none %} 
-            {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
-                <!-- if performance is bad then orange -->
-                {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
-                        <a href="#{{key}}"><strong>{{key}}</a>   <div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong><br>
-                <!-- else performance is average -->
-                {% else %}
-                        <a href="#{{key}}"><strong>{{key}}</a> <div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong><br>
-                {%endif %}
-            {%endif %}
-        {%endif %}
-    {% endfor %}
-</div>
-<hr>
 
 <div align="center" class="previewcont">
     <!-- usage of iframe in preview of the analyzed site  -->
