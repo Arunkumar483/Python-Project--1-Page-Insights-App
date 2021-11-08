@@ -7,23 +7,33 @@
 <subscript>{{analyzedurl}}</subscript>
 <hr>
 <div align="center" class="copytoclipboard">
-    
-    <button id="btn" class="btn btn-primary" onclick="myFunction()">Share this report </button>
+    <p  id="copy-me" style="display: none;"></p><br>
+    <button id="btn" class="btn btn-primary" onclick="copytext()">Share this report </button>
     
     <script>
+        function copyer(e){
+            document.getElementById('copy-me').style.display = 'block' ;
+            document.getElementById("copy-me").innerHTML=currLoc;
+            var t=document.getElementById(e);if(document.selection){if(t.nodeName.toLowerCase()==="input"){document.getElementById(e).select();document.execCommand("copy")}else{var o=document.body.createTextRange();o.moveToElementText(document.getElementById(e));o.select();document.execCommand("copy")}}else if(window.getSelection){if(t.nodeName.toLowerCase()==="input"){document.getElementById(e).select();document.execCommand("copy")}else{var o=document.createRange();o.selectNode(document.getElementById(e));window.getSelection().removeAllRanges();window.getSelection().addRange(o);document.execCommand("copy")}}}
+
+        // function myFunction() 
+        // {       
+        //         currLoc = $(location).attr('href');
+        //         console.log(currLoc);
+        //         /* Get the text field */
+        //         var copyText = currLoc;
+        //         /* Select the text field */
         
-        function myFunction() 
-        {       
-                currLoc = $(location).attr('href');
-                console.log(currLoc);
-                /* Get the text field */
-                var copyText = currLoc;
-                /* Select the text field */
-        
-                /* Copy the text inside the text field */
-                navigator.clipboard.writeText(copyText);
-                /* Alert the copied text */
-                alert("Copied the report url: " + copyText);
+        //         /* Copy the text inside the text field */
+        //         navigator.clipboard.writeText(copyText);
+        //         /* Alert the copied text */
+        //         alert("Copied the report url: " + copyText);
+        // }
+        function copytext()
+        {
+            currLoc = $(location).attr('href');
+
+            copyer("copy-me")
         }
     </script>
 </div>
