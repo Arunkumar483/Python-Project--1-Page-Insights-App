@@ -2,7 +2,6 @@
 {% block content %}
 <hr>
 <div class="wrapper cont">
-
 <br>
 <h2 align="center"><strong>Pageinsights Analysis</strong></h2>
 <subscript>{{analyzedurl}}</subscript>
@@ -10,17 +9,20 @@
 <div align="center" class="copytoclipboard">
     
     <p><input type="text" class="output" id="myInput" style="display: none;">
-        <br><button class="btn btn-primary" id="copiedtxt" style="display: none;" onclick="myFunction()">Copy text</button></p>
+        <br><button class="btn btn-primary" id="copiedtxt" style="display: none;" onclick="myFunction()">Copy text</button>
+    </p>
     <button id="btn" class="btn btn-primary" onclick="document.getElementById('myInput').style.display = 'block' ;" >Share this report </button>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-        $('#btn').click(function() {
+        $('#btn').click(function()
+        {
             currLoc = $(location).attr('href');
             document.getElementById('copiedtxt').style.display = 'block' ;
             document.querySelector('.output').value = currLoc;
             
         });
-        function myFunction() {
+        function myFunction() 
+        {
                 /* Get the text field */
                 var copyText = document.getElementById("myInput");
                 /* Select the text field */
@@ -30,37 +32,34 @@
                 navigator.clipboard.writeText(copyText.value);
                 /* Alert the copied text */
                 alert("Copied the report url: " + copyText.value);
-                }
+        }
     </script>
 </div>
 <hr>
 <div align="left" style="padding-left: 10%; padding-right: 5%;">
     <!-- base information about the current page -->
     <h4 align="center">Overall Page Performance Score<h2 style="color:green" align="center"> {{lighthouseResult["categories"]["performance"]["score"]*100}}%</h2></h4>
-    
-  
-    
     <div>
     <h5 align="center"></h5>
         {% for key,value in auditsdata.items() %}
             <table style="width:100%">
-            {% if value["score"] is not none %}
-                {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
-                    <!-- if performance is bad then orange -->
-                    {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
-                            <tr>
-                                <td><h5><strong>{{key}}<div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td></h5>
-                                <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
-                            </tr>
-                    <!-- else performance is average -->
-                    {% else %}
-                            <tr>
-                                <td><h5><strong>{{key}}<div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong></td></h5>
-                                <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
-                            </tr>
+                {% if value["score"] is not none %}
+                    {% if value["score"]*100 < 99 and value["score"]*100 > 1 %}
+                        <!-- if performance is bad then orange -->
+                        {% if value["score"]*100 < 75 and value["score"]*100 > 1 %}
+                                <tr>
+                                    <td><h5><strong>{{key}}<div style="color:rgb(255, 115, 0);">{{value["score"]*100}}%</div></strong></td></h5>
+                                    <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
+                                </tr>
+                        <!-- else performance is average -->
+                        {% else %}
+                                <tr>
+                                    <td><h5><strong>{{key}}<div style="color:rgb(0, 38, 255);">{{value["score"]*100}}%</div></strong></td></h5>
+                                    <td><a href="#{{key}}">(Click here to learn more about {{key}}.)</a></td>
+                                </tr>
+                        {%endif %}
                     {%endif %}
                 {%endif %}
-            {%endif %}
             </table>
         {% endfor %}
     </div>
@@ -69,7 +68,7 @@
 <hr>
 
 <div align="center" class="lighthouseResultcont">
-    <!-- url redirections information -->
+    <!-- url redirections information and base information -->
     <h5>BASE INFORMATION</h5> 
     <div>
     <caption>{{analyzedurl}}</caption>
@@ -137,36 +136,33 @@
 
             <!-- special parameters for network requests -->
             {% if value['id']=="network-requests" : %}
-            <div class="attributes" align="center">
-                    <table align="center " border=1 style="padding:10px">
-                    {% for i in  range(0,4)%}
-                        <tr align="left">{{value["details"]["items"][i]["url"]}}</tr><br>
-                    {% endfor %}
-                            </table>
-            </div>
-                    
+                <div class="attributes" align="center">
+                        <table align="center " border=1 style="padding:10px">
+                            {% for i in  range(0,4)%}
+                                <tr align="left">{{value["details"]["items"][i]["url"]}}</tr><br>
+                            {% endfor %}
+                        </table>
+                </div>
             {% endif %}
             <!-- special parameters for metrics -->
             {% if value['id']=="metrics" : %}
-            <div class="attributes" align="center">
-                    <table align="center " border=1 style="padding:10px">
-                    {% for key,value in value["details"]["items"][0].items() %}
-                    
-                            <tr><td>{{key}}</td><td> {{value}} ms</td></tr>
-                    {% endfor %}
-                            </table>
-            </div>
-                    
+                <div class="attributes" align="center">
+                        <table align="center " border=1 style="padding:10px">
+                            {% for key,value in value["details"]["items"][0].items() %}
+                            
+                                    <tr><td>{{key}}</td><td> {{value}} ms</td></tr>
+                            {% endfor %}
+                        </table>
+                </div>
             {% endif %}
-
             <!-- special parameters for diagnostics -->
             {% if value['id']=="diagnostics" : %}
                 <div class="attributes" align="center">
                         <table align="center " border=1 style="padding-left:10px">
-                        {% for key,value in value["details"]["items"][0].items() %}
-                        
-                                <tr><td>{{key}}</td><td> {{value}}</td></tr>
-                        {% endfor %}
+                            {% for key,value in value["details"]["items"][0].items() %}
+                            
+                                    <tr><td>{{key}}</td><td> {{value}}</td></tr>
+                            {% endfor %}
                         </table>                    
                 </div>                        
             {% endif %}
