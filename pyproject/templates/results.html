@@ -108,11 +108,12 @@
                             <small><strong>Performance :  {{value["score"]*100}}%</strong></small> 
                         {%endif %}
                     {%endif %}   
-            </h5> 
+                </h5> 
             <!-- Display screenshots of the analyzed page -->
             {% if value['title']=="Full-page screenshot" : %}
                 <div><img src="{{value["details"]["screenshot"]["data"]}}"" width="50%" height="300"></div>
             {% endif %}
+
 
             <!-- Display screenshots of the Final page -->
             {% if value['title']=="Final Screenshot" : %}
@@ -138,7 +139,6 @@
             {% if value['id']=="network-requests" : %}
             <div class="attributes" align="center">
                     <table align="center " border=1 style="padding:10px">
-                    
                     {% for i in  range(0,4)%}
                         <tr align="left">{{value["details"]["items"][i]["url"]}}</tr><br>
                     {% endfor %}
@@ -146,8 +146,6 @@
             </div>
                     
             {% endif %}
-            
-            
             <!-- special parameters for metrics -->
             {% if value['id']=="metrics" : %}
             <div class="attributes" align="center">
