@@ -8,10 +8,10 @@
 <hr>
 <div align="center" class="copytoclipboard">
     
+    <button id="btn" class="btn btn-primary" onclick="document.getElementById('myInput').style.display = 'none' ;">Share this report </button>
     <p><input type="text" class="output" id="myInput" style="display: none;">
-        <br><button class="btn btn-primary" id="copiedtxt" style="display: none;" onclick="myFunction()">Copy text</button>
+        <br><button class="btn btn-secondary" id="copiedtxt" style="display: none;" onclick="myFunction()">Generated URL</button>
     </p>
-    <button id="btn" class="btn btn-primary" onclick="document.getElementById('myInput').style.display = 'block' ;" >Share this report </button>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $('#btn').click(function()
