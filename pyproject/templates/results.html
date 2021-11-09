@@ -141,9 +141,9 @@
             <!-- Display snapshots -->
             {% if value['title']=="Screenshot Thumbnails" : %}
                 <div>
-                    <img src="{{value["details"]["items"][2]["data"]}}"" width="10%" height="100">
-                    <img src="{{value["details"]["items"][3]["data"]}}"" width="10%" height="100">
-                    <img src="{{value["details"]["items"][4]["data"]}}"" width="10%" height="100">  
+                    {% for i in range(0,value["details"]["items"]|length) %}
+                        <img src="{{value["details"]["items"][i]["data"]}}"" width="10%" height="100">
+                    {% endfor %}
                     <br>  
                 </div>
             {% endif %}
@@ -212,7 +212,7 @@
                 </div>                        
             {% endif %}
                 
-            {% if (value['id']=="max-potential-fid") or (value['id']=="network-rtt") or (value['id']=="first-contentful-paint") or (value['id']=="total-blocking-time") : %}
+            {% if (value['id']=="max-potential-fid") or (value['id']=="speed-index") or (value['id']=="network-rtt") or (value['id']=="first-contentful-paint") or (value['id']=="total-blocking-time") : %}
                 <div class="attributes" align="center">
                     {{value["numericValue"]}} {{value["numericUnit"]}}                
                 </div>                        
