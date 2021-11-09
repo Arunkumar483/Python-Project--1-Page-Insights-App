@@ -5,25 +5,26 @@ This webapp measures the performance of the webpage.
 
 http://gmarun2000.pythonanywhere.com/
 
-WORKFLOW :
+# WORKFLOW :
 
-->Get the url to be assessed from the user input.
+1. Specify the url to be assessed from the user input.
 
-->Return the Performance metrics by parsing the response from the API.
+2. Return the Performance metrics by parsing and manipulating the response from the API.
 
-->Generate page performance report as pdf*
+
+# TOOLS USED :
+
+1. Python
+2. Flask (Web Framework) 
 
 API :
 
 The PageSpeed Insights API returns real-world data from the Chrome User Experience Report and lab data from Lighthouse.
 
-TOOLS USED :
+https://developers.google.com/speed/docs/insights/v5/get-started
 
-Flask (Web Framework) 
 
-wkhtmltopdf (Pdf generation)*
-
-Screenshots of the Application
+# Screenshots of the Application
 
 Index page
 
