@@ -1,7 +1,12 @@
 from flask import Flask, json,render_template,request
-
+import os
+from dotenv import load_dotenv
 import requests
 #Standard :WSGI -> Standard that is used for communication between appliication and server.
+
+load_dotenv()
+
+api_key = os.getenv('API_KEY')
 app=Flask(__name__)
 
 #Decorator binded with function
